@@ -46,6 +46,25 @@ class Student (
         set(value) {
             field = value
         }
+
+    constructor(ID: Int,
+                surname: String,
+                name: String,
+                secondname: String,
+                phone: String) : this(ID, surname, name, secondname) {
+        this.phone = phone
+    }
+
+    constructor(ID: Int,
+                surname: String,
+                name: String,
+                secondname: String,
+                email: String,
+                git: String) : this(ID, surname, name, secondname) {
+        this.email = email
+        this.git = git
+    }
+
     override fun toString(): String {
         var str = "[ID $ID] $surname $name $secondname"
         if (phone != null) str += "\nНомер телефона: $phone"
