@@ -46,4 +46,13 @@ class Student (
         set(value) {
             field = value
         }
+    override fun toString(): String {
+        var str = "[ID $ID] $surname $name $secondname"
+        if (phone != null) str += "\nНомер телефона: $phone"
+        if (telegram != null) str += "\nTelegram: $telegram"
+        if (email != null) str += "\nEmail: $email"
+        if (git != null) str += "\nGit: $git"
+        return "$str\n"
+    }
+    fun show() = println(this.toString())
 }
