@@ -27,7 +27,7 @@ fun main() {
             "surname" to "Anny",
             "secondname" to "Annovich",
             "telegram" to "@the_anna",
-            "git" to "https://github.com/ann300"
+            "git" to "ann300"
         )),
         Student(mapOf(
             "ID" to 4,
@@ -42,6 +42,14 @@ fun main() {
             "surname" to "Frolova",
             "secondname" to "Aleksandrovna",
             "email" to "blumwinx2000@mail.com"
+        )),
+        Student(mapOf(
+            "ID" to 6,
+            "name" to "Irina",
+            "surname" to "IX",
+            "secondname" to "no secondname",
+            "email" to "lol2000@mail.com",
+            "phone" to "lol"
         )),
     )
     students.forEach { it.show() }
