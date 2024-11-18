@@ -61,8 +61,15 @@ fun main() {
     lab2()
 }
 fun FileTestLab2() {
+    //read
     val studList = Student.readFromTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
     studList.forEach { println(it.getInfoSt()) }
+    //write to
+    Student.writeToTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfileOUT_lab2.txt", studList)
+    val studList2 = Student.readFromTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
+    println()
+    studList2.forEach { println(it.getInfoSt()) }
+    require(studList2.toString() == studList.toString())
 }
 fun lab2() {
     val students = mutableListOf(

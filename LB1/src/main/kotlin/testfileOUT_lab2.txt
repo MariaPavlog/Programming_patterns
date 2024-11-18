@@ -1,0 +1,8 @@
+1,Ольга,Ананасова,Фруктовна,,,,
+1,Ольга,Ананасова,Фруктовна,,,,
+2,Инна,Черри,Игоревна,+79528459844,@cherry,cherry@test.com,https://github.com/cherry
+2,Инна,Черри,Игоревна,+79528459844,@cherry,cherry@test.com,https://github.com/cherry
+3,Test,Test,Test,,,,https://gitlab.com/test
+3,Test,Test,Test,,,,https://gitlab.com/test
+4,Watson,John,,,,johnWatson@mail.com,
+4,Watson,John,,,,johnWatson@mail.com,
