@@ -52,9 +52,23 @@ fun main() {
             "phone" to "lol"
         )),
     )
+    println("\nLab 1 results:\n")
     students.forEach { it.show() }
     students.forEach { it.anyGit() }
     students.forEach { it.anyContact() }
     students[1].setContacts(mapOf("telegram" to null, "email" to "newemail@com.com"))
     students[1].show()
+    println("\nLab 2 results:\n")
+    lab2()
+}
+fun lab2() {
+    val students = mutableListOf(
+        Student("1,Павлоградская,Мария,Александровна,,,,"),
+        Student("2,Фамилия,Имя,Отчество,+79528459854,@mail_heck,ex@example.com,https://github.com/git_check"),
+        Student("3,Иванов,Иван,Иванович,,@ivan2002,,https://github.com/ivan_200002"),
+        Student("4,Surname,Name,SecondName,,,,https://gitlab.com/user"),
+        Student("5,Вишня,Олег,Петросович,,,cherry@mail.com,")
+    )
+
+    students.forEach { it.show() }
 }

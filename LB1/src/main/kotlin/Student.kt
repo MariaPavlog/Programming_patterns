@@ -128,7 +128,18 @@ class Student(
         this.email = email
         this.git = git
     }
+    constructor(row: String) : this(row.split(','))
 
+    private constructor(row: List<String>) : this(
+        row[0].toInt(),
+        row[1],
+        row[2],
+        row[3],
+        row[4].ifEmpty { null },
+        row[5].ifEmpty { null },
+        row[6].ifEmpty { null },
+        row[7].ifEmpty { null }
+    )
     override fun toString(): String {
         var str = "[ID $ID] $surname $name $secondname"
         if (phone != null) str += "\nНомер телефона: $phone"
