@@ -60,6 +60,10 @@ fun main() {
     println("\nLab 2 results:\n")
     lab2()
 }
+fun FileTestLab2() {
+    val studList = Student.readFromTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
+    studList.forEach { println(it.getInfoSt()) }
+}
 fun lab2() {
     val students = mutableListOf(
         Student("1,Павлоградская,Мария,Александровна,,,,"),
@@ -83,4 +87,6 @@ fun lab2() {
         StudentShort(7, "Студент Иванов Н. Н., git: https://github.com/ivan, связаться можно по номеру телефона: +79528459855")
     )
     StudentsSHORT.forEach { it.show() }
+    print("\nEx 7:\n")
+    FileTestLab2()
 }

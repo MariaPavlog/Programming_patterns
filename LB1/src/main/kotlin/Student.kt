@@ -1,4 +1,6 @@
 package org.example
+import java.io.File
+import java.io.FileNotFoundException
 
 class Student(
     override val id: Int,
@@ -10,6 +12,28 @@ class Student(
     email: String? = null,
     git: String? = null
 ): SudentAbst(){
+    companion object {
+        fun readFromTxt(filePath: String): List<Student> {
+            val file = File(filePath)
+            if (!file.exists()) throw FileNotFoundException("Файл '$filePath' не найден")
+            return buildList {
+                var currentLine = 1
+                for (line in file.readLines()) {
+                    add(Student(line))
+                    if (line.isNotEmpty()) {
+                        try {
+                            add(Student(line))
+                        }
+                        catch (e: Exception) {
+                            throw Exception("Reading ERROR '$filePath', line $currentLine: ${e.message}")
+                        }
+                    }
+                    currentLine++
+                }
+            }
+        }
+    }
+
     var name = name
         get() = field
         set(value) {
@@ -151,6 +175,7 @@ class Student(
         if (hashMap.containsKey("email"))
             email = hashMap["email"]
     }
+
     fun getInfoSt() : String {
         val contactText = mapOf(
             "phone" to "номер телефона",
