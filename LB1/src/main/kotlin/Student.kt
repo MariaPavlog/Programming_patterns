@@ -30,7 +30,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckName(value)) field = value
-            else
+            //else
                 //throw IllegalArgumentException("Name is incorrect")
                 //println("name")
         }
@@ -38,7 +38,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckSecondname(value)) field = value
-            else
+                //else
                 //throw IllegalArgumentException("Secondname is incorrect")
                 //println("surname")
     }
@@ -46,7 +46,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckName(value)) field = value
-            else
+            //else
                 //throw IllegalArgumentException("Surname is incorrect")
                 //println("secondname")
     }
@@ -66,7 +66,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckTelegram(value)) field = value
-            else
+           // else
                 //throw IllegalArgumentException("Inavlid name for nick in telegram")
                 //println("telegram")
     }
@@ -75,7 +75,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckEmail(value)) field = value
-            else
+           // else
                 //throw IllegalArgumentException("Email adress is invalid")
                 //println("email")
         }
@@ -84,7 +84,7 @@ class Student(
         get() = field
         set(value) {
             if (CheckGit(value)) field = value
-            else
+            //else
                 //throw IllegalArgumentException("Git link is invalid")
         }
 
@@ -136,6 +136,17 @@ class Student(
         if (email != null) str += "\nEmail: $email"
         if (git != null) str += "\nGit: $git"
         return "$str\n"
+    }
+    fun anyGit(): Boolean {
+        val result = git != null
+        println("У студента $surname $name $secondname гит ${if (result) "при" else "от"}сутствует!")
+        return result
+    }
+
+    fun anyContact(): Boolean {
+        val result = phone != null || telegram != null || email != null
+        println("Студент $surname $name $secondname , контакты:  ${if (result) "ЕСТЬ" else "НЕТ"}")
+        return result
     }
 
     fun show() = println(this.toString())

@@ -53,4 +53,6 @@ fun main() {
         )),
     )
     students.forEach { it.show() }
+    students.forEach { it.anyGit() }
+    students.forEach { it.anyContact() }
 }
