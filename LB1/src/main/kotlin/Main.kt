@@ -68,6 +68,8 @@ fun lab2() {
         Student("3,Иванов,Иван,Иванович,,@ivan2002,,https://github.com/ivan_200002"),
         Student("4,Surname,Name,SecondName,,,,https://gitlab.com/user"),
         Student("5,Вишня,Олег,Петросович,,,cherry@mail.com,")
+        //Student("5,Вишня,Олег,Петросович,,,cherry@mail.com,"),
+
     )
 
     students.forEach { it.show() }
