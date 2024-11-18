@@ -1,7 +1,7 @@
 package org.example
 
 class Student(
-    val ID: Int,
+    override val id: Int,
     name: String,
     surname: String,
     secondname: String,
@@ -9,23 +9,7 @@ class Student(
     telegram: String? = null,
     email: String? = null,
     git: String? = null
-) {
-    companion object {
-        private val phoneRegex = Regex("""^(\+\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$""")
-
-        fun checkPhone(value: String?): Boolean {
-            return value != null && phoneRegex.matches(value)
-        }
-        private val nameRegex = Regex("""^[\p{L}-]+$""")
-        fun CheckName(value: String) = nameRegex.matches(value)
-        private val telegramRegex = Regex("""^@\w{5,32}$""")
-        fun CheckTelegram(value: String?) = value == null || telegramRegex.matches(value)
-        private val emailRegex = Regex("""^[A-Za-z0-9_+-]+(\.[A-Za-z0-9_+-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$""")
-        fun CheckEmail(value: String?) = value == null || emailRegex.matches(value)
-        private val gitRegex = Regex("""^(https?://)?([A-Za-z0-9]+\.)?[A-Za-z0-9]+\.[A-Za-z0-9]+/[A-Za-z0-9_-]+/?$""")
-        fun CheckGit(value: String?) = value == null || gitRegex.matches(value)
-        fun CheckSecondname(value: String) = value.isEmpty() || CheckName(value)
-    }
+): SudentAbst(){
     var name = name
         get() = field
         set(value) {
@@ -52,14 +36,11 @@ class Student(
     }
 
 
-    var phone: String? = phone
+    var phone = phone
+        get() = field
         set(value) {
-            if (checkPhone(value)) {
-                field = value
-            } else {
-               //throw IllegalArgumentException("Number is incorrect")
-                //println("номер некорректный")
-            }
+            if (CheckPhone(value)) field = value
+            else throw IllegalArgumentException("Number is incorrect")
         }
 
     var telegram = telegram
@@ -80,7 +61,7 @@ class Student(
                 //println("email")
         }
 
-    var git = git
+    override var git = git
         get() = field
         set(value) {
             if (CheckGit(value)) field = value
@@ -144,7 +125,7 @@ class Student(
         row[7].ifEmpty { null }
     )
     override fun toString(): String {
-        var str = "[ID $ID] $surname $name $secondname"
+        var str = "[ID $id] $surname $name $secondname"
         if (phone != null) str += "\nНомер телефона: $phone"
         if (telegram != null) str += "\nTelegram: $telegram"
         if (email != null) str += "\nEmail: $email"
@@ -189,5 +170,5 @@ class Student(
         else if (email != null) Pair("email", email)
         else null
 
-    fun show() = println(this.toString())
+
 }
