@@ -55,4 +55,6 @@ fun main() {
     students.forEach { it.show() }
     students.forEach { it.anyGit() }
     students.forEach { it.anyContact() }
+    students[1].setContacts(mapOf("telegram" to null, "email" to "newemail@com.com"))
+    students[1].show()
 }
