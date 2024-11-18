@@ -73,4 +73,5 @@ fun lab2() {
     )
 
     students.forEach { it.show() }
+    students.forEach { println(it.getInfoSt())}
 }

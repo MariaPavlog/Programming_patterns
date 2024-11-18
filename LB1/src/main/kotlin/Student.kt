@@ -170,6 +170,24 @@ class Student(
         if (hashMap.containsKey("email"))
             email = hashMap["email"]
     }
+    fun getInfoSt() : String {
+        val contactText = mapOf(
+            "phone" to "номер телефона",
+            "telegram" to "Telegram",
+            "email" to "электронная почта"
+        )
+        val git = "git${if (this.git != null) ": ${this.git}" else " не указан"}"
+        val contact = getContact().let {
+            if (it != null) "${contactText[it.first]}: ${it.second}" else "контакты не указаны"
+        }
+        return "Студент ${getInitials()}, $git, $contact"
+    }
+    private fun getInitials() = "$name ${surname[0]}.${if (secondname.isNotEmpty()) " ${secondname[0]}." else ""}"
+    private fun getContact() =
+        if      (phone != null) Pair("phone", phone)
+        else if (telegram != null) Pair("telegram", telegram)
+        else if (email != null) Pair("email", email)
+        else null
 
     fun show() = println(this.toString())
 }
