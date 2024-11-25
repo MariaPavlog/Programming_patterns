@@ -89,9 +89,9 @@ class Student(
         get() = field
         set(value) {
             if (CheckEmail(value)) field = value
-           // else
-                //throw IllegalArgumentException("Email adress is invalid")
-                //println("email")
+            else
+                throw IllegalArgumentException("Email adress is invalid")
+                println("email")
         }
 
     override var git = git

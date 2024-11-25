@@ -38,8 +38,8 @@ fun main() {
         )),
         Student(mapOf(
             "ID" to 5,
-            "name" to "Anastasia",
-            "surname" to "Frolova",
+            "name" to "Maria",
+            "surname" to "Pavlogradskaya",
             "secondname" to "Aleksandrovna",
             "email" to "blumwinx2000@mail.com"
         )),
@@ -55,7 +55,7 @@ fun main() {
     students.forEach { it.show() }
     students.forEach { it.anyGit() }
     students.forEach { it.anyContact() }
-    students[1].setContacts(mapOf("telegram" to null, "email" to "newemail@com.com"))
+    students[1].setContacts(mapOf("telegram" to null, "email" to "newemailcom.com"))
     students[1].show()
     println("\nLab 2 results:\n")
     lab2()
