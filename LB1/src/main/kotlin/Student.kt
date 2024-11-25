@@ -19,7 +19,7 @@ class Student(
             return buildList {
                 var currentLine = 1
                 for (line in file.readLines()) {
-                    add(Student(line))
+
                     if (line.isNotEmpty()) {
                         try {
                             add(Student(line))
@@ -89,9 +89,9 @@ class Student(
         get() = field
         set(value) {
             if (CheckEmail(value)) field = value
-            else
-                throw IllegalArgumentException("Email adress is invalid")
-                println("email")
+           // else
+            //    throw IllegalArgumentException("Email adress is invalid")
+           //     println("email")
         }
 
     override var git = git
