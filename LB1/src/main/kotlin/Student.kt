@@ -12,35 +12,35 @@ class Student(
     email: String? = null,
     git: String? = null
 ): SudentAbst(){
-    companion object {
-        fun readFromTxt(filePath: String): List<Student> {
-            val file = File(filePath)
-            if (!file.exists()) throw FileNotFoundException("Файл '$filePath' не найден")
-            return buildList {
-                var currentLine = 1
-                for (line in file.readLines()) {
-
-                    if (line.isNotEmpty()) {
-                        try {
-                            add(Student(line))
-                        }
-                        catch (e: Exception) {
-                            throw Exception("Reading ERROR '$filePath', line $currentLine: ${e.message}")
-                        }
-                    }
-                    currentLine++
-                }
-            }
-        }
-        fun writeToTxt(filePath: String, students: Iterable<Student>) {
-            val file = File(filePath)
-            file.printWriter().use {
-                for (student in students) {
-                    it.println(student.toStringRow())
-                }
-            }
-        }
-    }
+//    companion object {
+//        fun readFromTxt(filePath: String): List<Student> {
+//            val file = File(filePath)
+//            if (!file.exists()) throw FileNotFoundException("Файл '$filePath' не найден")
+//            return buildList {
+//                var currentLine = 1
+//                for (line in file.readLines()) {
+//
+//                    if (line.isNotEmpty()) {
+//                        try {
+//                            add(Student(line))
+//                        }
+//                        catch (e: Exception) {
+//                            throw Exception("Reading ERROR '$filePath', line $currentLine: ${e.message}")
+//                        }
+//                    }
+//                    currentLine++
+//                }
+//            }
+//        }
+//        fun writeToTxt(filePath: String, students: Iterable<Student>) {
+//            val file = File(filePath)
+//            file.printWriter().use {
+//                for (student in students) {
+//                    it.println(student.toStringRow())
+//                }
+//            }
+//        }
+//    }
 
 
     var name = name
@@ -165,7 +165,7 @@ class Student(
         if (git != null) str += "\nGit: $git"
         return "$str\n"
     }
-    private fun toStringRow() = listOf(
+    fun toStringRow() = listOf(
         id.toString(), surname, name, secondname, phone ?: "", telegram ?: "", email ?: "", git ?: "").joinToString(",")
     fun anyGit(): Boolean {
         val result = git != null
@@ -205,6 +205,6 @@ class Student(
         else if (telegram != null) Pair("telegram", telegram)
         else if (email != null) Pair("email", email)
         else null
-
+    fun copyWithChangedId(newId: Int) = Student(newId, surname, name, secondname, phone, telegram, email, git)
 
 }

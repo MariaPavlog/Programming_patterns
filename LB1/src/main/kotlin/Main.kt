@@ -3,63 +3,65 @@ package org.example
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
-    val students = mutableListOf(
-
-        Student(mapOf(
-            "ID" to 1,
-            "name" to "Ivan",
-            "surname" to "Ivanovich",
-            "secondname" to "Ivanov"
-        )),
-        Student(mapOf(
-            "ID" to 2,
-            "name" to "Jack",
-            "surname" to "Jackov",
-            "secondname" to "Jacksov",
-            "phone" to "+79528459854",
-            "telegram" to "@chips_the_unlimited",
-            "email" to "jack999@mail.com",
-            "git" to "https://github.com/jack999"
-        )),
-        Student(mapOf(
-            "ID" to 3,
-            "name" to "Ann",
-            "surname" to "Anny",
-            "secondname" to "Annovich",
-            "telegram" to "@the_anna",
-            "git" to "ann300"
-        )),
-        Student(mapOf(
-            "ID" to 4,
-            "name" to "Are",
-            "surname" to "Who",
-            "secondname" to "You",
-            "git" to "https://gitlab.com/unknown"
-        )),
-        Student(mapOf(
-            "ID" to 5,
-            "name" to "Maria",
-            "surname" to "Pavlogradskaya",
-            "secondname" to "Aleksandrovna",
-            "email" to "blumwinx2000@mail.com"
-        )),
-        Student(mapOf(
-            "ID" to 6,
-            "name" to "Irina",
-            "surname" to "IX",
-            "secondname" to "no secondname",
-            "email" to "lol2000@mail.com"
-        )),
-    )
+//    val students = mutableListOf(
+//
+//        Student(mapOf(
+//            "ID" to 1,
+//            "name" to "Ivan",
+//            "surname" to "Ivanovich",
+//            "secondname" to "Ivanov"
+//        )),
+//        Student(mapOf(
+//            "ID" to 2,
+//            "name" to "Jack",
+//            "surname" to "Jackov",
+//            "secondname" to "Jacksov",
+//            "phone" to "+79528459854",
+//            "telegram" to "@chips_the_unlimited",
+//            "email" to "jack999@mail.com",
+//            "git" to "https://github.com/jack999"
+//        )),
+//        Student(mapOf(
+//            "ID" to 3,
+//            "name" to "Ann",
+//            "surname" to "Anny",
+//            "secondname" to "Annovich",
+//            "telegram" to "@the_anna",
+//            "git" to "ann300"
+//        )),
+//        Student(mapOf(
+//            "ID" to 4,
+//            "name" to "Are",
+//            "surname" to "Who",
+//            "secondname" to "You",
+//            "git" to "https://gitlab.com/unknown"
+//        )),
+//        Student(mapOf(
+//            "ID" to 5,
+//            "name" to "Maria",
+//            "surname" to "Pavlogradskaya",
+//            "secondname" to "Aleksandrovna",
+//            "email" to "blumwinx2000@mail.com"
+//        )),
+//        Student(mapOf(
+//            "ID" to 6,
+//            "name" to "Irina",
+//            "surname" to "IX",
+//            "secondname" to "no secondname",
+//            "email" to "lol2000@mail.com"
+//        )),
+//    )
     //println("\nLab 1 results:\n")
     //students.forEach { it.show() }
     //students.forEach { it.anyGit() }
     //students.forEach { it.anyContact() }
     //students[1].setContacts(mapOf("telegram" to null, "email" to "newemailcom.com"))
     //students[1].show()
-    println("\nLab 2 results:\n")
+    //println("\nLab 2 results:\n")
     //lab2()
-    lab2part2()
+    //lab2part2()
+    lab3TestGettingStudents()
+
 }
 //fun FileTestLab2() {
 //    //read
@@ -98,20 +100,87 @@ fun main() {
 //    print("\nEx 7:\n")
 //    FileTestLab2()
 //}
-fun lab2part2() {
-    val studList = Student.readFromTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt").map { StudentShort(it) }
-    studList.forEach { it.show() }
+//fun lab2part2() {
+//    val studList = Student.readFromTxt("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt").map { StudentShort(it) }
+//    studList.forEach { it.show() }
+//
+//    val dataList = DataListStudentShort(studList)
+//    val names = dataList.getNames()
+//    println(names)
+//    dataList.select(0)
+//    dataList.select(2)
+//    val dataTable = dataList.getData()
+//    for (i in 0..<dataTable.getRowCount()) {
+//        for (j in 0..<dataTable.getColCount()) {
+//            print("${dataTable[i, j]} ")
+//        }
+//        println()
+//    }
+//}
 
-    val dataList = DataListStudentShort(studList)
-    val names = dataList.getNames()
-    println(names)
-    dataList.select(0)
-    dataList.select(2)
-    val dataTable = dataList.getData()
+fun printDataTable(dataTable: DataTable) {
+
     for (i in 0..<dataTable.getRowCount()) {
         for (j in 0..<dataTable.getColCount()) {
             print("${dataTable[i, j]} ")
+
         }
         println()
+    }}
+fun lab3TestGettingStudents() {
+    val students = StudentListTXT()
+    students.load("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
+    println(students.getStudentShortCount())
+    for (id in 1..4) {
+        try {
+            println(students.getStudentById(id).toStringRow())
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+        }
     }
-}
+    println()
+    printDataTable(students.getStudentShortList(1, 3).getData())
+    println("=========================")
+    printDataTable(students.getStudentShortList(1, 1).getData())
+    println("=========================")
+//    printDataTable(students.getStudentShortList(0, 3).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(1, -1).getData())
+//    println("=========================")
+    printDataTable(students.getStudentShortList(2, 100).getData())
+    println("=========================")
+    printDataTable(students.getStudentShortList(3, 1).getData())
+    println("=========================")
+    printDataTable(students.getStudentShortList(2, 3).getData())
+
+    println()
+    students.sortByStudentName()
+    printDataTable(students.getStudentShortList(1, 4).getData())
+
+    println()
+    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+    printDataTable(students.getStudentShortList(1, 100).getData())
+    println()
+    println(students.getStudentById(3).toStringRow())
+    students.replace(3, Student(0, "Изменённый", "Студент", "Хе-хе"))
+    println(students.getStudentById(3).toStringRow())
+    println()
+    students.remove(3)
+    for (id in 1..5) {
+        try {
+            println(students.getStudentById(id).toStringRow())
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+        }
+    }
+    println()
+    students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
+    students.add(Student(0, "Студент", "Номер", "Восемь"))
+    for (id in 1..7) {
+        try {
+            println(students.getStudentById(id).toStringRow())
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+            println(students.getStudentShortCount())
+            students.save("lab3_output.txt")
+        }}}
