@@ -61,7 +61,8 @@ fun main() {
     //lab2()
     //lab2part2()
     //lab3TestGettingStudents()
-    lab3TestJSON()
+    //lab3TestJSON()
+    lab3TestYAML()
 
 }
 //fun FileTestLab2() {
@@ -205,6 +206,34 @@ fun lab3TestJSON() {
 
     val students2 = StudentListJSON()
     students2.load("lab3_output.json")
+    println(students.getStudentShortCount())
+    for (id in 1..6) {
+        try {
+            println(students.getStudentById(id).toStringRow())
+        } catch (e: IllegalArgumentException) {
+            println(e.message)
+        }
+    }
+}
+fun lab3TestYAML() {
+    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
+
+    val students = StudentListYAML()
+    students.add(Student(123, "Новый", "Студент", "Студентович"))
+    students.remove(1)
+    students.add(Student(mapOf("ID" to 100, "surname" to "Павлоградская", "name" to "Мария", "secondname" to "Александровна")))
+    students.add(Student(mapOf("ID" to 101, "surname" to "Тестов", "name" to "Тест", "secondname" to "Тестович",
+        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
+        "git" to "https://github.com/test123")))
+    students.add(Student(mapOf("ID" to 102, "surname" to "Фамилия", "name" to "Имя", "secondname" to "",
+        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
+    students.add(Student(123, "Новый", "Студент", "Студентович"))
+    students.remove(5)
+    students.add(Student(123, "Новый", "Студент", "Студентович"))
+    students.save("lab3_output.yaml")
+
+    val students2 = StudentListYAML()
+    students2.load("lab3_output.yaml")
     println(students.getStudentShortCount())
     for (id in 1..6) {
         try {

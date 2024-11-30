@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "2.0.0-RC1"
     kotlin("plugin.serialization") version "1.9.22"
 }
 
@@ -13,6 +13,8 @@ repositories {
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("com.charleskorn.kaml:kaml:0.61.0")
+
 }
 
 tasks.test {

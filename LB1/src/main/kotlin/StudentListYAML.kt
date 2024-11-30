@@ -2,49 +2,29 @@ package org.example
 
 import java.io.File
 import java.io.FileNotFoundException
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.builtins.ListSerializer
+import com.charleskorn.kaml.Yaml
+import com.charleskorn.kaml.YamlConfiguration
 
-
-@Serializable
-data class StudentSurrogate(val id: Int,
-                            val surname: String,
-                            val name: String,
-                            val secondname: String,
-                            val phone: String? = null,
-                            val telegram: String? = null,
-                            val email: String? = null,
-                            val git: String? = null) {
-    constructor(student: Student) : this(student.id,
-        student.surname,
-        student.name,
-        student.secondname,
-        student.phone,
-        student.telegram,
-        student.email,
-        student.git)
-}
-
-class StudentListJSON {
+class StudentListYAML {
     private var students = mutableMapOf<Int, Student>()
     private var autoIncrementNextId = 1
 
     fun load(filepath: String) {
         val file = File(filepath)
         if (!file.exists()) throw FileNotFoundException("Файл '$filepath' не найден")
-        students = Json.decodeFromString<Array<StudentSurrogate>>(file.readText()).map {
+        students = Yaml.default.decodeFromString(ListSerializer(StudentSurrogate.serializer()), file.readText()).map {
             Student(it.id, it.surname, it.name, it.secondname, it.phone, it.telegram, it.email, it.git)
         }.associateBy({ it.id }, { it }).toMutableMap()
         autoIncrementNextId = (students.keys.maxOrNull() ?: 0) + 1
-
     }
 
     fun save(filepath: String) {
         val file = File(filepath)
-        val jsonString = Json.encodeToString(students.values.map { StudentSurrogate(it) })
-        file.writeText(jsonString)
+        val config = YamlConfiguration(encodeDefaults = false)
+        val yamlString = Yaml(configuration = config).encodeToString(students.values.map { StudentSurrogate(it) })
+        file.writeText(yamlString)
     }
 
     fun getStudentById(id: Int) = students[id] ?: throw IllegalArgumentException("Студент с ID $id не найден")
