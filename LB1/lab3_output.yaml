@@ -1,8 +1,21 @@
-- id: 2
-  surname: "Павлоградская"
+- id: 4
+  surname: "Watson"
+  name: "John"
+  secondname: ""
+  email: "johnWatson@mail.com"
+- id: 7
+  surname: "Студент"
+  name: "Номер"
+  secondname: "Восемь"
+- id: 8
+  surname: "Новый"
+  name: "Студент"
+  secondname: "Хе-хе"
+- id: 9
+  surname: "Павлогрдаская"
   name: "Мария"
   secondname: "Александровна"
-- id: 3
+- id: 10
   surname: "Тестов"
   name: "Тест"
   secondname: "Тестович"
@@ -10,13 +23,47 @@
   telegram: "@test123"
   email: "test@example.com"
   git: "https://github.com/test123"
-- id: 4
+- id: 11
   surname: "Фамилия"
   name: "Имя"
   secondname: ""
   telegram: "@familiyaimya"
   git: "https://github.com/familiyaimya"
-- id: 6
+- id: 12
+  surname: "Новый"
+  name: "Студент"
+  secondname: "Студентович"
+- id: 13
+  surname: "Новый"
+  name: "Студент"
+  secondname: "Студентович"
+- id: 14
+  surname: "Новый"
+  name: "Студент"
+  secondname: "Студентович"
+- id: 15
+  surname: "Павлоградская"
+  name: "Мария"
+  secondname: "Александровна"
+- id: 16
+  surname: "Тестов"
+  name: "Тест"
+  secondname: "Тестович"
+  phone: "+79876543210"
+  telegram: "@test123"
+  email: "test@example.com"
+  git: "https://github.com/test123"
+- id: 17
+  surname: "Фамилия"
+  name: "Имя"
+  secondname: ""
+  telegram: "@familiyaimya"
+  git: "https://github.com/familiyaimya"
+- id: 18
+  surname: "Новый"
+  name: "Студент"
+  secondname: "Студентович"
+- id: 19
   surname: "Новый"
   name: "Студент"
   secondname: "Студентович"
