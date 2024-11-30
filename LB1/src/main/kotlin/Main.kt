@@ -61,7 +61,7 @@ fun main() {
     //lab2()
     //lab2part2()
     //lab3TestGettingStudents()
-    //lab3TestJSON()
+    lab3TestJSON()
     lab3TestYAML()
 
 }
