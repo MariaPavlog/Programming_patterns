@@ -1,8 +1,28 @@
 package org.example
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.SQLException
+fun testSQLiteConnection() {
+    val conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\HP\\IdeaProjects\\Programming_patterns\\LB1\\data\\students.db")
+    val stmt = conn.createStatement()
+    val resultSet = stmt.executeQuery("SELECT * FROM Student")
+    while (resultSet.next()) {
+        println(listOf(
+            resultSet.getInt("id"),
+            resultSet.getString("surname"),
+            resultSet.getString("name"),
+            resultSet.getString("secondname"),
+            resultSet.getString("phone"),
+            resultSet.getString("telegram"),
+            resultSet.getString("email"),
+            resultSet.getString("git")
+        ).joinToString())
+    }
+}//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
+
+    testSQLiteConnection()
 //    val students = mutableListOf(
 //
 //        Student(mapOf(
@@ -63,7 +83,7 @@ fun main() {
     //lab3TestGettingStudents()
     //lab3TestJSON()
     //lab3TestYAML()
-    lab3Test()
+    //lab3Test()
 }
 //fun FileTestLab2() {
 //    //read

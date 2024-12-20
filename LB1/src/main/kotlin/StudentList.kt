@@ -10,7 +10,7 @@ import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.YamlConfiguration
 
 @Serializable
-data class StudentSerializable(val id: Int,
+data class StudentSeьrializable(val id: Int,
                                val surname: String,
                                val name: String,
                                val secondname: String,
