@@ -22,9 +22,43 @@ fun testStudentListDB() {
     println(students.remove(0))
     println(students.remove(100))
 }
+fun testStudentListAdapter() {
+    val studentsDB = StudentListDB()
+    Database.connect()
+    val studentsTXT = StudentListFile(TXTFormatStrategy())
+    studentsTXT.load("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
+    val studentsJSON = StudentListFile(JSONFormatStrategy())
+    studentsJSON.load("lab3_output.json")
+    val students1 = StudentList(studentsDB)
+    val students2 = StudentList(StudentListFileAdapter(studentsTXT))
+    val students3 = StudentList(StudentListFileAdapter(studentsJSON))
+    for (students in listOf(students1, students2, students3)) {
+        println("BEGIN")
+        println()
+        println(students.getStudentById(1)?.toStringRow())
+        println(students.getStudentById(0))
+        println()
+        printDataTable(students.getStudentShortList(3, 2).getData())
+        println()
+        printDataTable(students.getStudentShortList(2, 4).getData())
+        println()
+        println(students.getStudentShortCount())
+        students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+        println(students.getStudentShortCount())
+        println(students.getStudentById(8)?.toStringRow())
+        println(students.getStudentById(9)?.toStringRow())
+        students.remove(7)
+        println(students.remove(5))
+        students.add(Student(0, "Ещё", "Студент", "", email = "123@456.789"))
+        students.replace(8, Student(0, "Изменённый", "Студент", "", telegram = "@skullemoji"))
+        println(students.remove(0))
+        println(students.remove(100))
+        println()
+    }
+}
 fun main() {
-
-    testStudentListDB()
+    testStudentListAdapter()
+ //   testStudentListDB()
 //    val students = mutableListOf(
 //
 //        Student(mapOf(
@@ -151,121 +185,121 @@ fun printDataTable(dataTable: DataTable) {
         }
         println()
     }}
-fun lab3Test() {
-    // TXT
-
-    val students = StudentList(TXTFormatStrategy())
-    students.load("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
-    println(students.getStudentShortCount())
-    for (id in 1..4) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-    println()
-    printDataTable(students.getStudentShortList(1, 3).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(1, 1).getData())
-    println("=========================")
-//    printDataTable(students.getStudentShortList(0, 3).getData())
+//fun lab3Test() {
+//    // TXT
+//
+//    val students = StudentList(TXTFormatStrategy())
+//    students.load("C://Users//HP//IdeaProjects//Programming_patterns//LB1//src//main//kotlin//testfile_lab2.txt")
+//    println(students.getStudentShortCount())
+//    for (id in 1..4) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//    println()
+//    printDataTable(students.getStudentShortList(1, 3).getData())
 //    println("=========================")
-//    printDataTable(students.getStudentShortList(1, -1).getData())
+//    printDataTable(students.getStudentShortList(1, 1).getData())
 //    println("=========================")
-    printDataTable(students.getStudentShortList(2, 100).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(3, 1).getData())
-    println("=========================")
-    printDataTable(students.getStudentShortList(2, 3).getData())
-
-    println()
-    students.sortByStudentName()
-    printDataTable(students.getStudentShortList(1, 4).getData())
-
-    println()
-    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
-    printDataTable(students.getStudentShortList(1, 100).getData())
-    println()
-    println(students.getStudentById(3).toStringRow())
-    students.replace(3, Student(0, "Изменённый", "Студент", "Хе-хе"))
-    println(students.getStudentById(3).toStringRow())
-    println()
-    students.remove(3)
-    for (id in 1..5) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-    println()
-    students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
-    students.add(Student(0, "Студент", "Номер", "Восемь"))
-    for (id in 1..7) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-            println(students.getStudentShortCount())
-            students.save("lab3_output.txt")
-        }}
-
-//fun lab3TestJSON() {
-    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
-
-    //val students = StudentListJSON()
-    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
-    students.remove(1)
-    students.add(Student(mapOf("ID" to 100, "surname" to "Павлогрдаская", "name" to "Мария", "secondname" to "Александровна")))
-    students.add(Student(mapOf("ID" to 101, "surname" to "Тестов", "name" to "Тест", "secondname" to "Тестович",
-        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
-        "git" to "https://github.com/test123")))
-    students.add(Student(mapOf("ID" to 102, "surname" to "Фамилия", "name" to "Имя", "secondname" to "",
-        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
-    students.add(Student(123, "Новый", "Студент", "Студентович"))
-    students.remove(5)
-    students.add(Student(123, "Новый", "Студент", "Студентович"))
-students.formatStrategy = JSONFormatStrategy()
-    students.save("lab3_output.json")
-
-    val students2 = StudentList(JSONFormatStrategy())
-    students2.load("lab3_output.json")
-    println(students.getStudentShortCount())
-    for (id in 1..6) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
+////    printDataTable(students.getStudentShortList(0, 3).getData())
+////    println("=========================")
+////    printDataTable(students.getStudentShortList(1, -1).getData())
+////    println("=========================")
+//    printDataTable(students.getStudentShortList(2, 100).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(3, 1).getData())
+//    println("=========================")
+//    printDataTable(students.getStudentShortList(2, 3).getData())
+//
+//    println()
+//    students.sortByStudentName()
+//    printDataTable(students.getStudentShortList(1, 4).getData())
+//
+//    println()
+//    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+//    printDataTable(students.getStudentShortList(1, 100).getData())
+//    println()
+//    println(students.getStudentById(3).toStringRow())
+//    students.replace(3, Student(0, "Изменённый", "Студент", "Хе-хе"))
+//    println(students.getStudentById(3).toStringRow())
+//    println()
+//    students.remove(3)
+//    for (id in 1..5) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+//    println()
+//    students.add(Student(0, "Вернувшийся", "Студент", "Хе-хе"))
+//    students.add(Student(0, "Студент", "Номер", "Восемь"))
+//    for (id in 1..7) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//            println(students.getStudentShortCount())
+//            students.save("lab3_output.txt")
+//        }}
+//
+////fun lab3TestJSON() {
+//    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
+//
+//    //val students = StudentListJSON()
+//    students.add(Student(123, "Новый", "Студент", "Хе-хе"))
+//    students.remove(1)
+//    students.add(Student(mapOf("ID" to 100, "surname" to "Павлогрдаская", "name" to "Мария", "secondname" to "Александровна")))
+//    students.add(Student(mapOf("ID" to 101, "surname" to "Тестов", "name" to "Тест", "secondname" to "Тестович",
+//        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
+//        "git" to "https://github.com/test123")))
+//    students.add(Student(mapOf("ID" to 102, "surname" to "Фамилия", "name" to "Имя", "secondname" to "",
+//        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
+//    students.add(Student(123, "Новый", "Студент", "Студентович"))
+//    students.remove(5)
+//    students.add(Student(123, "Новый", "Студент", "Студентович"))
+//students.formatStrategy = JSONFormatStrategy()
+//    students.save("lab3_output.json")
+//
+//    val students2 = StudentList(JSONFormatStrategy())
+//    students2.load("lab3_output.json")
+//    println(students.getStudentShortCount())
+//    for (id in 1..6) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
+////}
+////fun lab3TestYAML() {
+//    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
+//
+//    //val students = StudentListYAML()
+//    students.add(Student(123, "Новый", "Студент", "Студентович"))
+//    students.remove(2)
+//    students.add(Student(mapOf("ID" to 100, "surname" to "Павлоградская", "name" to "Мария", "secondname" to "Александровна")))
+//    students.add(Student(mapOf("ID" to 101, "surname" to "Тестов", "name" to "Тест", "secondname" to "Тестович",
+//        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
+//        "git" to "https://github.com/test123")))
+//    students.add(Student(mapOf("ID" to 102, "surname" to "Фамилия", "name" to "Имя", "secondname" to "",
+//        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
+//    students.add(Student(123, "Новый", "Студент", "Студентович"))
+//    students.remove(6)
+//    students.add(Student(123, "Новый", "Студент", "Студентович"))
+//    students.formatStrategy = YAMLFormatStrategy()
+//    students.save("lab3_output.yaml")
+//
+//    students2.formatStrategy = YAMLFormatStrategy()
+//    students2.load("lab3_output.yaml")
+//    println(students.getStudentShortCount())
+//    for (id in 1..6) {
+//        try {
+//            println(students.getStudentById(id).toStringRow())
+//        } catch (e: IllegalArgumentException) {
+//            println(e.message)
+//        }
+//    }
 //}
-//fun lab3TestYAML() {
-    // val jsonObject = JsonObject(mapOf("id" to JsonPrimitive(1), "surname" to JsonPrimitive("Эзри")))
-
-    //val students = StudentListYAML()
-    students.add(Student(123, "Новый", "Студент", "Студентович"))
-    students.remove(2)
-    students.add(Student(mapOf("ID" to 100, "surname" to "Павлоградская", "name" to "Мария", "secondname" to "Александровна")))
-    students.add(Student(mapOf("ID" to 101, "surname" to "Тестов", "name" to "Тест", "secondname" to "Тестович",
-        "phone" to "+79876543210", "telegram" to "@test123", "email" to "test@example.com",
-        "git" to "https://github.com/test123")))
-    students.add(Student(mapOf("ID" to 102, "surname" to "Фамилия", "name" to "Имя", "secondname" to "",
-        "telegram" to "@familiyaimya", "git" to "https://github.com/familiyaimya")))
-    students.add(Student(123, "Новый", "Студент", "Студентович"))
-    students.remove(6)
-    students.add(Student(123, "Новый", "Студент", "Студентович"))
-    students.formatStrategy = YAMLFormatStrategy()
-    students.save("lab3_output.yaml")
-
-    students2.formatStrategy = YAMLFormatStrategy()
-    students2.load("lab3_output.yaml")
-    println(students.getStudentShortCount())
-    for (id in 1..6) {
-        try {
-            println(students.getStudentById(id).toStringRow())
-        } catch (e: IllegalArgumentException) {
-            println(e.message)
-        }
-    }
-}
