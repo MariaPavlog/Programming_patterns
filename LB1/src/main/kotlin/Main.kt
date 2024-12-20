@@ -59,7 +59,7 @@ import javafx.application.Application
 fun main() {
     System.setProperty("prism.order", "sw")
     System.setProperty("prism.text", "grayscale")
-    Application.launch(view.MainView::class.java)
+    Application.launch(StudentsApp::class.java)
  //   testStudentListAdapter()
  //   testStudentListDB()
 //    val students = mutableListOf(

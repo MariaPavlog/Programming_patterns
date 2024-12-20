@@ -14,4 +14,10 @@ class DataListStudentShort(studentShortArray: List<StudentShort>) : DataList(stu
             add(listOf(count++, student.surnameWithInitials, student.git, student.contact))
         }
     })
+    fun getIds() = buildList {
+        for (obj in array) {
+            val studentShort = obj as StudentShort
+            add(studentShort.id)
+        }
+    }
 }
