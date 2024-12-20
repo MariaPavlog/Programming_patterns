@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<TabPane xmlns:fx="http://javafx.com/fxml">
+    <Tab text="Список студентов" closable="false">
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <VBox spacing="10" minWidth="250">
+                <ScrollPane VBox.vgrow="ALWAYS" maxHeight="Infinity" fitToWidth="true" styleClass="region">
+                    <VBox spacing="7">
+                        <Label text="Фильтры" alignment="CENTER" maxWidth="Infinity"/>
+                        <Separator/>
+                        <GridPane hgap="7" vgap="7">
+                            <Label text="Фамилия:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                            <TextField promptText="Фильтр по фамилии" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                            <Label text="Имя:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField promptText="Фильтр по имени" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                            <Label text="Отчество:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField promptText="Фильтр по отчеству" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS"/>
+                            <Separator GridPane.rowIndex="3" GridPane.columnSpan="2"/>
+                            <Label text="Git:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <VBox spacing="7" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                                <HBox spacing="7">
+                                    <RadioButton fx:id="gitYes" text="Да" />
+                                    <RadioButton fx:id="gitNo" text="Нет" />
+                                    <RadioButton fx:id="gitNotImportant" text="Не важно" />
+                                </HBox>
+                                <TextField fx:id="gitSearchField" promptText="Фильтр по гиту" />
+                            </VBox>
+                            <Separator GridPane.rowIndex="5" GridPane.columnSpan="2"/>
+                            <Label text="Email:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                            <VBox spacing="7" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                                <HBox spacing="7">
+                                    <RadioButton fx:id="emailYes" text="Да" />
+                                    <RadioButton fx:id="emailNo" text="Нет" />
+                                    <RadioButton fx:id="emailNotImportant" text="Не важно" />
+                                </HBox>
+                                <TextField fx:id="emailSearchField" promptText="Фильтр по почте" />
+                            </VBox>
+                            <Separator GridPane.rowIndex="7" GridPane.columnSpan="2"/>
+                            <Label text="Телефон:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                            <VBox spacing="7" GridPane.rowIndex="8" GridPane.columnIndex="1">
+                                <HBox spacing="7">
+                                    <RadioButton fx:id="phoneYes" text="Да" />
+                                    <RadioButton fx:id="phoneNo" text="Нет" />
+                                    <RadioButton fx:id="phoneNotImportant" text="Не важно" />
+                                </HBox>
+                                <TextField fx:id="phoneSearchField" promptText="Фильтр по номеру телефона" />
+                            </VBox>
+                            <Separator GridPane.rowIndex="9" GridPane.columnSpan="2"/>
+                            <Label text="Telegram:" GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                            <VBox spacing="7" GridPane.rowIndex="10" GridPane.columnIndex="1">
+                                <HBox spacing="7">
+                                    <RadioButton fx:id="telegramYes" text="Да" />
+                                    <RadioButton fx:id="telegramNo" text="Нет" />
+                                    <RadioButton fx:id="telegramNotImportant" text="Не важно" />
+                                </HBox>
+                                <TextField fx:id="telegramSearchField" promptText="Фильтр по имени пользователя Telegram" />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                </ScrollPane>
+                <VBox HBox.hgrow="ALWAYS" spacing="7" styleClass="region">
+                    <HBox spacing="7" alignment="CENTER">
+                        <Button text="Добавить" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Изменить" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Удалить" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    </HBox>
+                    <Button text="Обновить" alignment="CENTER" maxWidth="Infinity"/>
+                    <Button text="Сбросить фильтры" alignment="CENTER" maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" styleClass="region">
+                <TableView VBox.vgrow="ALWAYS" styleClass="transparent">
+                    <TableColumn fx:id="column1" text="Столбец 1" />
+                    <TableColumn fx:id="column2" text="Столбец 2" />
+                </TableView>
+            </VBox>
+        </HBox>
+    </Tab>
+    <Tab text="Лабораторные работы" closable="false">
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <StackPane VBox.vgrow="ALWAYS">
+                <Label text="Недоступно"/>
+            </StackPane>
+        </VBox>
+    </Tab>
+    <Tab text="Оценки" closable="false">
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <StackPane VBox.vgrow="ALWAYS">
+                <Label text="Недоступно"/>
+            </StackPane>
+        </VBox>
+    </Tab>
+</TabPane>
