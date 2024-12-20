@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation ("org.junit.jupiter:junit-jupiter:5.7.0")
+    testImplementation ("org.mockito:mockito-core:3.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("com.charleskorn.kaml:kaml:0.61.0")
     implementation("org.xerial:sqlite-jdbc:3.45.1.0")

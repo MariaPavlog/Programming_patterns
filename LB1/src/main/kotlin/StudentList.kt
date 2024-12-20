@@ -1,5 +1,5 @@
 package org.example
-class StudentList(var dataSource: StudentListInterface) {
+class StudentList(val dataSource: StudentListInterface) {
     fun getStudentById(id: Int) = dataSource.getStudentById(id)
     fun getStudentShortList(k: Int, n: Int) = dataSource.getStudentShortList(k, n)
     fun add(student: Student) = dataSource.add(student)
