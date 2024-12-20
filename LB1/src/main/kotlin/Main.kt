@@ -1,28 +1,27 @@
 package org.example
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.SQLException
-fun testSQLiteConnection() {
-    val conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\HP\\IdeaProjects\\Programming_patterns\\LB1\\data\\students.db")
-    val stmt = conn.createStatement()
-    val resultSet = stmt.executeQuery("SELECT * FROM Student")
-    while (resultSet.next()) {
-        println(listOf(
-            resultSet.getInt("id"),
-            resultSet.getString("surname"),
-            resultSet.getString("name"),
-            resultSet.getString("secondname"),
-            resultSet.getString("phone"),
-            resultSet.getString("telegram"),
-            resultSet.getString("email"),
-            resultSet.getString("git")
-        ).joinToString())
-    }
-}//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+fun testStudentListDB() {
+    val students = StudentListDB("jdbc:sqlite:data/students.db")
+//    println(students.getStudentById(1)?.toStringRow())
+//    println(students.getStudentById(0))
+//    println()
+//    printDataTable(students.getStudentShortList(3, 2).getData())
+//    println()
+//    printDataTable(students.getStudentShortList(2, 4).getData())
+//    println()
+//    println(students.getStudentShortCount())
+//    students.add(Student(0, "Новый", "Студент", "Хе-хе"))
+//    println(students.getStudentShortCount())
+//    println(students.getStudentById(8)?.toStringRow())
+//    println(students.getStudentById(9)?.toStringRow())
+//    students.remove(7)
+//    println(students.remove(5))
+//    students.add(Student(0, "Ещё", "Студент", "", email = "123@456.789"))
+//    students.replace(8, Student(0, "Изменённый", "Студент", "", telegram = "@skullemoji"))
+}
 fun main() {
 
-    testSQLiteConnection()
+    testStudentListDB()
 //    val students = mutableListOf(
 //
 //        Student(mapOf(
