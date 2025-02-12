@@ -1,4 +1,5 @@
 package controller
+
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -9,18 +10,60 @@ import javafx.stage.Stage
 import model.TableRow
 import model.ModelInterface
 import model.StudentShortModel
+import org.example.StudentList
 import view.MainView
 import view.ViewInterface
+import java.util.logging.*
+
 class MainWindowController : ControllerInterface {
+    private val logger = Logger.getLogger(MainWindowController::class.java.name)
+
+    init {
+        logger.level = Level.ALL  // Level.ALL или Level.SEVERE
+    }
+
     private val view: ViewInterface = MainView(this)
     private val model: ModelInterface = StudentShortModel(listOf(view))
     private var page: Int = 1
     private var pageSize: Int = 15
+
+    @FXML
     private fun refreshData() {
+        logger.info("Refreshing data for page $page with page size $pageSize...")
         try {
-            model.refreshData(page, pageSize)
-        }
-        catch (ex: Exception) {
+            // Получаем значения фильтров
+            val surname = surnameField.text.trim()
+            val name = nameField.text.trim()
+            val patronym = patronymField.text.trim()
+
+            val git = when (gitToggleGroup.selectedToggle) {
+                gitYes -> true
+                gitNo -> false
+                else -> null // Не важно
+            }
+
+            val email = when (emailToggleGroup.selectedToggle) {
+                emailYes -> true
+                emailNo -> false
+                else -> null // Не важно
+            }
+
+            val phone = when (phoneToggleGroup.selectedToggle) {
+                phoneYes -> true
+                phoneNo -> false
+                else -> null // Не важно
+            }
+
+            val telegram = when (telegramToggleGroup.selectedToggle) {
+                telegramYes -> true
+                telegramNo -> false
+                else -> null // Не важно
+            }
+            // Передаем полученные значения в модель для фильтрации
+            model.refreshData(page, pageSize, surname, name, patronym, git, email, phone, telegram)
+
+        } catch (ex: Exception) {
+            logger.severe("Error refreshing data: $ex")
             val errorAlert = Alert(Alert.AlertType.ERROR)
             errorAlert.title = "Ошибка подключения к базе данных"
             errorAlert.headerText = "При подключении к базе данных возникла ошибка:"
@@ -29,7 +72,9 @@ class MainWindowController : ControllerInterface {
         }
     }
 
+
     private var selectedIds = listOf<Int>()
+
     @FXML
     private lateinit var surnameField: TextField
     @FXML
@@ -88,17 +133,26 @@ class MainWindowController : ControllerInterface {
     lateinit var btnPrevPage: Button
     @FXML
     lateinit var btnNextPage: Button
+
     @FXML
     private fun initialize() {
-        listOf(gitYes, gitNo, gitNotImportant).forEach {it.toggleGroup = gitToggleGroup}
-        listOf(emailYes, emailNo, emailNotImportant).forEach {it.toggleGroup = emailToggleGroup}
-        listOf(phoneYes, phoneNo, phoneNotImportant).forEach {it.toggleGroup = phoneToggleGroup}
-        listOf(telegramYes, telegramNo, telegramNotImportant).forEach {it.toggleGroup = telegramToggleGroup}
+        logger.info("Initializing main window controller...")
+        listOf(gitYes, gitNo, gitNotImportant).forEach { it.toggleGroup = gitToggleGroup }
+        listOf(emailYes, emailNo, emailNotImportant).forEach { it.toggleGroup = emailToggleGroup }
+        listOf(phoneYes, phoneNo, phoneNotImportant).forEach { it.toggleGroup = phoneToggleGroup }
+        listOf(telegramYes, telegramNo, telegramNotImportant).forEach { it.toggleGroup = telegramToggleGroup }
         resetFilters()
-        gitYes.selectedProperty().addListener { _, _, isSelected -> gitField.isDisable = !isSelected }
-        emailYes.selectedProperty().addListener { _, _, isSelected -> emailField.isDisable = !isSelected }
-        phoneYes.selectedProperty().addListener { _, _, isSelected -> phoneField.isDisable = !isSelected }
-        telegramYes.selectedProperty().addListener { _, _, isSelected -> telegramField.isDisable = !isSelected }
+
+        // Обработчики событий для текстовых полей и радиокнопок
+        surnameField.textProperty().addListener { _, _, _ -> refreshData() }
+        nameField.textProperty().addListener { _, _, _ -> refreshData() }
+        patronymField.textProperty().addListener { _, _, _ -> refreshData() }
+        gitToggleGroup.selectedToggleProperty().addListener { _, _, _ -> refreshData() }
+        emailToggleGroup.selectedToggleProperty().addListener { _, _, _ -> refreshData() }
+        phoneToggleGroup.selectedToggleProperty().addListener { _, _, _ -> refreshData() }
+        telegramToggleGroup.selectedToggleProperty().addListener { _, _, _ -> refreshData() }
+
+        // Остальной код инициализации
         studentsTable.selectionModel.selectionMode = SelectionMode.MULTIPLE
         rowsPerPageField.text = "15"
         rowsPerPageField.setOnKeyTyped {
@@ -120,8 +174,10 @@ class MainWindowController : ControllerInterface {
             }
             editBtn.isDisable = selectedIds.size != 1
         }
+        logger.info("Main window controller initialized")
         refreshData()
     }
+
     @FXML
     private fun resetFilters() {
         surnameField.clear()
@@ -139,7 +195,9 @@ class MainWindowController : ControllerInterface {
         emailField.isDisable = true
         phoneField.isDisable = true
         telegramField.isDisable = true
+        logger.info("Filters have been reset")
     }
+
     private fun showForm(fillValues: (FormController) -> Unit, submitAction: (FormController) -> Unit, formTitle: String, errTitle: String, errHeader: String) {
         val loader = FXMLLoader(javaClass.getResource("/view/FormWindow.fxml"))
         val formWindow: Parent = loader.load()
@@ -158,8 +216,9 @@ class MainWindowController : ControllerInterface {
             try {
                 submitAction(formController)
                 formWindowStage.close()
-            }
-            catch (ex: IllegalArgumentException) {
+                logger.info("Form submitted")
+            } catch (ex: IllegalArgumentException) {
+                logger.severe("Error submitting form: $ex")
                 val errorAlert = Alert(Alert.AlertType.ERROR)
                 errorAlert.title = errTitle
                 errorAlert.headerText = errHeader
@@ -171,9 +230,11 @@ class MainWindowController : ControllerInterface {
             formWindowStage.close()
         }
     }
+
     @FXML
     private fun addStudentButton() {
-        showForm({}, {formController -> model.addStudent(
+        logger.info("Showing dialog for adding a new student")
+        showForm({}, { formController -> model.addStudent(
             formController.surnameField.text,
             formController.nameField.text,
             formController.patronymField.text,
@@ -181,10 +242,12 @@ class MainWindowController : ControllerInterface {
             formController.emailField.text.ifEmpty { null },
             formController.phoneField.text.ifEmpty { null },
             formController.telegramField.text.ifEmpty { null }
-        )}, "Добавить студента", "Ошибка добавления", "При добавлении студента возникла ошибка:")
+        ) }, "Добавить студента", "Ошибка добавления", "При добавлении студента возникла ошибка:")
     }
+
     @FXML
     private fun editStudentButton() {
+        logger.info("Showing dialog for editing student with ID ${selectedIds[0]}")
         showForm({
             val studentForEdit = model.getStudentById(selectedIds[0])
             it.surnameField.text = studentForEdit?.surname ?: ""
@@ -195,7 +258,7 @@ class MainWindowController : ControllerInterface {
             it.phoneField.text = studentForEdit?.phone ?: ""
             it.telegramField.text = studentForEdit?.telegram ?: ""
             it.submitButton.text = "Сохранить"
-        }, {formController -> model.editStudent(
+        }, { formController -> model.editStudent(
             selectedIds[0],
             formController.surnameField.text,
             formController.nameField.text,
@@ -204,24 +267,32 @@ class MainWindowController : ControllerInterface {
             formController.emailField.text.ifEmpty { null },
             formController.phoneField.text.ifEmpty { null },
             formController.telegramField.text.ifEmpty { null }
-        )}, "Изменить данные о студенте", "Ошибка редактирования", "При изменении данных возникла ошибка:")
+        ) }, "Изменить данные о студенте", "Ошибка редактирования", "При изменении данных возникла ошибка:")
     }
+
     @FXML
     private fun deleteStudentButton() {
+        logger.info("Deleting students with IDs $selectedIds")
         selectedIds.forEach { model.delStudent(it) }
     }
+
     @FXML
     private fun updateButton() {
         refreshData()
     }
+
     @FXML
     private fun prevPage() {
+        logger.info("Navigating to page $page")
         page--
         refreshData()
     }
+
     @FXML
     private fun nextPage() {
+        logger.info("Navigating to page $page")
         page++
         refreshData()
     }
 }
+

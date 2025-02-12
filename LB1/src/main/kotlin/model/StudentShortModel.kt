@@ -18,10 +18,10 @@ class StudentShortModel(private val views: List<ViewInterface>) : ModelInterface
             subscriber.setTableData(listStudentShort.getData())
         }
     }
-    override fun refreshData(k: Int, n: Int) {
-        page = k
-        pageSize = n
-        val listStudentShort = studentList.getStudentShortList(k, n)
+    override fun refreshData(page: Int, pageSize: Int, surname: String?, name: String?, patronym: String?, git: Boolean?, email: Boolean?, phone: Boolean?, telegram: Boolean?) {
+        page = page
+        pageSize = pageSize
+        val listStudentShort = studentList.getStudentShortList(page, pageSize)
         this.notify(listStudentShort)
     }
     override fun addStudent(surname: String, name: String, patronym: String, git: String?, email: String?, phone: String?, telegram: String?) {
@@ -38,4 +38,7 @@ class StudentShortModel(private val views: List<ViewInterface>) : ModelInterface
     }
     override fun getIdsOfCurrentPageRows() = studentList.getStudentShortList(page, pageSize).getIds()
     override fun getStudentById(id: Int) = studentList.getStudentById(id)
+
+
+
 }

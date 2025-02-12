@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
@@ -39,7 +38,7 @@
                                 <HBox spacing="7">
                                     <RadioButton fx:id="gitYes" text="Да" />
                                     <RadioButton fx:id="gitNo" text="Нет" />
-                                    <RadioButton fx:id="gitNotImportant" text="Не важно" />
+                                    <RadioButton fx:id="gitNotImportant" text="Не важно" selected="true"/>
                                 </HBox>
                                 <TextField fx:id="gitField" promptText="Фильтр по гиту" />
                             </VBox>
@@ -51,7 +50,7 @@
                                 <HBox spacing="7">
                                     <RadioButton fx:id="emailYes" text="Да" />
                                     <RadioButton fx:id="emailNo" text="Нет" />
-                                    <RadioButton fx:id="emailNotImportant" text="Не важно" />
+                                    <RadioButton fx:id="emailNotImportant" text="Не важно" selected="true"/>
                                 </HBox>
                                 <TextField fx:id="emailField" promptText="Фильтр по почте" />
                             </VBox>
@@ -63,7 +62,7 @@
                                 <HBox spacing="7">
                                     <RadioButton fx:id="phoneYes" text="Да" />
                                     <RadioButton fx:id="phoneNo" text="Нет" />
-                                    <RadioButton fx:id="phoneNotImportant" text="Не важно" />
+                                    <RadioButton fx:id="phoneNotImportant" text="Не важно" selected="true"/>
                                 </HBox>
                                 <TextField fx:id="phoneField" promptText="Фильтр по номеру телефона" />
                             </VBox>
@@ -75,7 +74,7 @@
                                 <HBox spacing="7">
                                     <RadioButton fx:id="telegramYes" text="Да" />
                                     <RadioButton fx:id="telegramNo" text="Нет" />
-                                    <RadioButton fx:id="telegramNotImportant" text="Не важно" />
+                                    <RadioButton fx:id="telegramNotImportant" text="Не важно" selected="true"/>
                                 </HBox>
                                 <TextField fx:id="telegramField" promptText="Фильтр по имени пользователя Telegram" />
                             </VBox>
@@ -89,7 +88,7 @@
                         <Button fx:id="editBtn" text="Изменить" onAction="#editStudentButton" disable="true" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                         <Button fx:id="delBtn" text="Удалить" onAction="#deleteStudentButton" disable="true" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     </HBox>
-                    <Button text="Обновить" onAction="#updateButton" alignment="CENTER" maxWidth="Infinity"/>
+                    <Button text="Обновить" onAction="#refreshData" alignment="CENTER" maxWidth="Infinity"/>
                     <Button text="Сбросить фильтры" onMouseClicked="#resetFilters" alignment="CENTER" maxWidth="Infinity"/>
                 </VBox>
             </VBox>
@@ -127,3 +126,4 @@
         </VBox>
     </Tab>
 </TabPane>
+

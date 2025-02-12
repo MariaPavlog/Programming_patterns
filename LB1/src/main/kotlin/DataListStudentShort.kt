@@ -1,6 +1,6 @@
 package org.example
 
-class DataListStudentShort(studentShortArray: List<StudentShort>) : DataList(studentShortArray) {
+open class DataListStudentShort(studentShortArray: List<StudentShort>) : DataList(studentShortArray) {
     override fun getNames() = listOf("ID", "ФИО", "Git", "Контакт")
     override fun getData() = DataTable(buildList {
         for (index in array.indices) {

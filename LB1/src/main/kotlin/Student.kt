@@ -102,7 +102,13 @@ class Student(
                 //throw IllegalArgumentException("Git link is invalid")
         }
 
+    override fun equals(other: Any?) =
+        other is Student && surname == other.surname && name == other.name && secondname == other.secondname
+                && phone == other.phone && telegram == other.telegram && email == other.email && git == other.git
 
+    override fun hashCode() =
+        surname.hashCode() + name.hashCode() + secondname.hashCode() +
+                phone.hashCode() + telegram.hashCode() + email.hashCode() + git.hashCode()
     constructor(
         ID: Int,
         surname: String,
