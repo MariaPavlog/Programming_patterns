@@ -8,6 +8,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.YamlConfiguration
+import filter.*
 
 @Serializable
 data class StudentSeьrializable(val id: Int,
@@ -115,7 +116,19 @@ class StudentListFile(var formatStrategy: FormatStrategy) {
             StudentShort(it)
         })
     }
-
+    fun getStudentShortListFiltered(k: Int, n: Int, searchParam: SearchParam?) : DataListStudentShort {
+        if (searchParam == null) return getStudentShortList(k, n)
+        if (k < 1) throw IllegalArgumentException("Значение k должно быть больше или равно 1")
+        if (n < 0) throw IllegalArgumentException("Значение n не должно быть отрицательным")
+        val filter: FilterInterface = nameFilter(gitFilter(contactsFilter(baseFilter())))
+        val studList = filter.filter(students.values.toList(), searchParam)
+        val firstElem = (k - 1) * n
+        if (firstElem >= studList.size || n == 0) return DataListStudentShort(listOf())
+        val lastElem = (firstElem + n - 1).coerceAtMost(studList.size - 1)
+        return DataListStudentShort(students.values.toList().slice(firstElem..lastElem).map {
+            StudentShort(it)
+        })
+    }
     fun sortByStudentName() {
         students = students.toList()
             .sortedBy { "${it.second.surname} ${it.second.name} ${it.second.secondname}" }

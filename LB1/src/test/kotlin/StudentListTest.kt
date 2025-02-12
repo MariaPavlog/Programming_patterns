@@ -1,6 +1,11 @@
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeEach
+import org.example.Student
+import org.example.StudentList
+import org.example.StudentListFile
+import org.example.StudentListFileAdapter
+import org.example.JSONFormatStrategy
 
 class StudentListTest {
     private lateinit var studentList: StudentList
@@ -14,18 +19,18 @@ class StudentListTest {
 
     @Test
     fun getStudents() {
-        var actual: Student? = studentList.getStudentById(1)
-        var expected: Student? = Student(0, "Эзри", "Артём", "Александрович")
+        var actual: Student? = studentList.getStudentById(4)
+        var expected: Student? = Student(0, "Watson", "John", "", email="johnWatson@mail.com")
         assertEquals(expected, actual)
 
-        actual = studentList.getStudentById(2)
+        actual = studentList.getStudentById(10)
         expected = Student(0, "Тестов", "Тест", "Тестович", "+79876543210", "@test123", "test@example.com", "https://github.com/test123")
         assertEquals(expected, actual)
 
-        actual = studentList.getStudentById(0)
+        actual = studentList.getStudentById(2)
         assertNull(actual)
 
-        actual = studentList.getStudentById(7)
+        actual = studentList.getStudentById(13)
         assertNull(actual)
     }
 
